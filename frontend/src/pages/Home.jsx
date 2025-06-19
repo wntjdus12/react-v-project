@@ -1,5 +1,5 @@
 import React from 'react';
-import '/work/react_project/first_vi/src/App.css'
+import "../App.css";
 import Sub from '../component/Sub'
 import Grid from '@mui/material/Grid';
 import Main from '../component/Main';

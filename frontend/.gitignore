@@ -24,7 +24,6 @@ public
 *.sln
 *.sw?
 
-package-lock.json
-package.json
+
 myenv
 
