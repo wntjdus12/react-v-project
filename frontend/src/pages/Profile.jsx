@@ -27,7 +27,7 @@ function profile(props) {
                     환영합니다!
                 </Typography>
                 <Typography variant="body1" color="white" mb={4}>
-                    당신의 직업은 무엇인가요? <br /> 맞춤형 정보를 제공해드릴게요!
+                    당신의 직업은 무엇인가요? <br /> 맞춤형 정보를 제공해드릴게요!!
                 </Typography>
 
       <Box
