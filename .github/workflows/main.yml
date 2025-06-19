@@ -5,11 +5,11 @@ on:
     branches: [ main ]
 
 env:
-  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_USERNAME: tjdusdl
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-  FRONTEND_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/react-app
-  BACKEND_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/backend-app
+  FRONTEND_IMAGE: tjdusdl/react-app
+  BACKEND_IMAGE: tjdusdl/backend-app
 
   EC2_HOST: ${{ secrets.HOST }}
   EC2_USERNAME: ${{ secrets.USERNAME }}
@@ -36,7 +36,7 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: ${{ env.FRONTEND_IMAGE }}:latest
+          tags: tjdusdl/react-app:latest
 
       # === Build & Push Backend ===
       - name: Build & Push Backend
@@ -45,7 +45,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: ${{ env.BACKEND_IMAGE }}:latest
+          tags: tjdusdl/backend-app:latest
 
       # === Deploy to EC2 ===
       - name: Deploy to EC2
@@ -57,8 +57,8 @@ jobs:
           port: ${{ env.PORT }}
           script: |
             echo "==== Pull latest Docker images ===="
-            docker pull ${{ env.FRONTEND_IMAGE }}:latest
-            docker pull ${{ env.BACKEND_IMAGE }}:latest
+            docker pull tjdusdl/react-app:latest
+            docker pull tjdusdl/backend-app:latest
 
             echo "==== Stop & Remove old containers ===="
             docker stop frontend || true
@@ -67,8 +67,8 @@ jobs:
             docker rm backend || true
 
             echo "==== Run new containers ===="
-            docker run -d --restart always --name frontend -p 80:80 ${{ env.FRONTEND_IMAGE }}:latest
-            docker run -d --restart always --name backend -p 3000:3000 ${{ env.BACKEND_IMAGE }}:latest
+            docker run -d --restart always --name frontend -p 80:80 tjdusdl/react-app:latest
+            docker run -d --restart always --name backend -p 3000:3000 tjdusdl/backend-app:latest
 
             echo "==== Cleanup old images ===="
             docker image prune -f
